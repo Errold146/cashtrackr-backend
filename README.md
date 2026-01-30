@@ -27,7 +27,7 @@ API REST construida con Express.js y TypeScript para administración de presupue
 
 ### 1. Clonar el repositorio
 ```bash
-git clone <backend-repository>
+git clone https://github.com/Errold146/cashtrackr-backend
 cd backend
 ```
 
