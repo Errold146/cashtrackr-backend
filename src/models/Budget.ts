@@ -1,5 +1,5 @@
 import { Table, Column, DataType, Model, HasMany, AllowNull, BelongsTo, ForeignKey } from "sequelize-typescript";
-import Expense from "./Expense.js";
+import type Expense from "./Expense.js";
 import User from "./User.js";
 
 @Table({ tableName: 'budgets' })
