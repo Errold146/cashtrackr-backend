@@ -33,12 +33,24 @@ export class BudgetController {
     }
     
     static getById = async (req: Request, res: Response) => {
+        try {
+            const budget = await Budget.findByPk(req.budget.id)
 
-        const budget = await Budget.findByPk(req.budget.id, {
-            include: [ Expense ]
-        })
+            if ( !budget ) {
+                return res.status(404).json({ error: "Presupuesto no encontrado." })
+            }
 
-        res.json(budget)
+            const expenses = await Expense.findAll({
+                where: { budgetId: budget.id }
+            })
+
+            res.json({
+                ...budget.toJSON(),
+                expenses
+            })
+        } catch (error) {
+            handleError(res, error)
+        }
     }
     
     static updateById = async (req: Request, res: Response) => {

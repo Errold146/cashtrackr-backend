@@ -2,7 +2,6 @@ import { body, param } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 
 import Budget from "../models/Budget.js";
-import Expense from "../models/Expense.js";
 import { handleInputErrors } from "./validation.js";
 import { handleError } from "../helpers/handleError.js";
 
@@ -26,9 +25,7 @@ export const validateBudgetId = async (req: Request, res: Response, next: NextFu
 export const validateBudgetExists = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const { budgetId } = req.params
-        const budget = await Budget.findByPk(budgetId as string, {
-            include: [ Expense ]
-        })
+        const budget = await Budget.findByPk(budgetId as string)
 
         if ( !budget ) {
             const error = new Error("Presupuesto no encontrado.")
