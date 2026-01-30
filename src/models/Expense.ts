@@ -1,5 +1,5 @@
 import { Table, Column, DataType, BelongsTo, ForeignKey, Model, AllowNull } from "sequelize-typescript";
-import type Budget from "./Budget.js";
+import Budget from "./Budget.js";
 
 @Table({ tableName: "expenses" })
 class Expense extends Model {
@@ -19,7 +19,10 @@ class Expense extends Model {
     @ForeignKey(() => Budget)
     declare budgetId: number
 
-    @BelongsTo(() => Budget)
+    @BelongsTo(() => Budget, {
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE"
+    })
     declare budget: Budget
 }
 

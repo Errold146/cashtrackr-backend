@@ -1,5 +1,5 @@
 import { Table, Column, DataType, Model, HasMany, Default, Unique, AllowNull } from "sequelize-typescript";
-import type Budget from "./Budget.js";
+import Budget from "./Budget.js";
 
 @Table({
     tableName: 'users'
