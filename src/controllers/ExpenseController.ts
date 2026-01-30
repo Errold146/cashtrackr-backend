@@ -8,7 +8,10 @@ export class ExpensesController {
     static create = async (req: Request, res: Response) => {
         try {
             // Calcular gasto total actual del presupuesto
-            const totalSpent = req.budget.expenses.reduce((total: number, expense: any) => +expense.amount + total, 0)
+            const expenses = await Expense.findAll({
+                where: { budgetId: req.budget.id }
+            })
+            const totalSpent = expenses.reduce((total: number, expense: any) => +expense.amount + total, 0)
             const budgetAmount = +req.budget.amount
             const availableFunds = budgetAmount - totalSpent
             const expenseAmount = +req.body.amount
@@ -38,7 +41,10 @@ export class ExpensesController {
     static updateById = async (req: Request, res: Response) => {
         try {
             // Calcular gasto total actual sin contar este gasto
-            const totalSpent = req.budget.expenses
+            const expenses = await Expense.findAll({
+                where: { budgetId: req.budget.id }
+            })
+            const totalSpent = expenses
                 .filter((expense: any) => expense.id !== req.expense.id)
                 .reduce((total: number, expense: any) => +expense.amount + total, 0)
             
